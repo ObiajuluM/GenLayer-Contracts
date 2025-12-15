@@ -2,7 +2,17 @@
 from genlayer import *
 
 
-# TODO add DID_SET & DID_DELETE events
+class DIDSET(gl.Event):
+    def __init__(self, sender: Address, did_document: str, did_data: str, did_uri: str,/,):
+        self.sender = sender
+        self.did_document = did_document
+        self.did_data = did_data
+        self.did_uri = did_uri
+
+
+class DIDDELETE(gl.Event):
+    def __init__(self, sender: Address,/,):
+        self.sender = sender
 
 
 class DID(gl.Contract):
@@ -40,7 +50,7 @@ class DID(gl.Contract):
         self.did_document = did_document
         self.did_data = did_data
         self.did_uri = did_uri
-        # TODO add DID_SET event emission here
+        DIDSET(gl.message.sender_address, did_document, did_data, did_uri)
 
     @gl.public.write
     def set_did(self, did_document: str, did_data: str, did_uri: str):
@@ -63,7 +73,7 @@ class DID(gl.Contract):
         self.did_document = did_document
         self.did_data = did_data
         self.did_uri = did_uri
-        # TODO add DID_SET event emission here
+        DIDSET(gl.message.sender_address, did_document, did_data, did_uri)
 
     @gl.public.view
     def get_did(self) -> TreeMap[str, str]:
@@ -92,4 +102,4 @@ class DID(gl.Contract):
         self.did_data = ""
         self.did_uri = ""
         # TODO: see if we want to selfdestruct the contract here
-        # TODO add DID_DELETE event emission here
+        DIDDELETE(gl.message.sender_address)
