@@ -83,6 +83,10 @@ This is a decentralized voting contract implemented in Python using the `genlaye
 4.  **Vote**: Registered voters call `vote` with the index of their chosen proposal.
 5.  **Tally**: Anyone can call `winning_proposal` or `winner_name` to see the results.
 
+## Future Improvements
+
+- **Vote Delegation**: Support for delegating votes to other voters is coming soon.
+
 ## Dependencies
 
 - `py-genlayer:latest`
